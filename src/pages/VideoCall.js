@@ -113,7 +113,7 @@ function VideoCall() {
                                         color: "gray.200",
                                     }}
                                 >
-                                    Software Engineer
+                                   remote
                                 </chakra.span>
                             </Box>
                         </Box>
@@ -161,7 +161,7 @@ function VideoCall() {
                                         color: "gray.200",
                                     }}
                                 >
-                                    Software Engineer
+                                    local
                                 </chakra.span>
                             </Box>
                         </Box>
