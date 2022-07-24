@@ -92,7 +92,7 @@ function VideoCall() {
                             overflow="hidden"
                             mx="auto"
                         >
-                            <video style={{'width':'100%'}} ref={remoteVideoRef}  muted="muted"></video>
+                            <video style={{'width':'100%'}} ref={remoteVideoRef} ></video>
 
                             <Box py={5}   w="90%" h="90%" textAlign="center">
                                 <Link
