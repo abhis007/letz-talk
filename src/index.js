@@ -4,8 +4,11 @@ import './index.css';
 import App from './App';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
+import Home from './pages/Home';
+import VideoCall from './pages/VideoCall';
 import { ChakraProvider } from '@chakra-ui/react'
 import { BrowserRouter, Routes,Route } from "react-router-dom";
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -17,6 +20,8 @@ root.render(
       <Route path="/" element={<App />} />
       <Route path="Signin" element={<Signin />} />
       <Route path="Signup" element={<Signup />} />
+      <Route path="Home" element={<Home />} />
+      <Route path="Video" element={<VideoCall />} />
     </Routes>
     </BrowserRouter>
   </React.StrictMode>

@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 
 
 function NavigationBar() {
-    const bg = useColorModeValue("green.400", "gray.800");
+    const bg = useColorModeValue("blue.600", "gray.800");
     const mobileNav = useDisclosure();
     return (
       <React.Fragment>

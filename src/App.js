@@ -17,7 +17,27 @@ import {
   useColorModeValue,
   createIcon,
 } from '@chakra-ui/react';
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBHqXtVhTtX2NAiNOzPqJBoXslzeidejZM",
+  authDomain: "letztalk-148db.firebaseapp.com",
+  projectId: "letztalk-148db",
+  storageBucket: "letztalk-148db.appspot.com",
+  messagingSenderId: "47157969708",
+  appId: "1:47157969708:web:90aced77861c5b9309e289",
+  measurementId: "G-LPY8B19W72"
+};
+
+// Initialize Firebase
+const fapp = initializeApp(firebaseConfig);
+const analytics = getAnalytics(fapp);
 
 function App() {
   const [token, setToken] = useState()

@@ -14,8 +14,27 @@ import {
     Text,
     useColorModeValue,
   } from '@chakra-ui/react';
+  import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { createRoutesFromChildren } from 'react-router-dom';
+import { useState } from 'react';
 
+const auth = getAuth();
+const registerUser =(email,password)=>{
+createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+  });
+}
 function Signup() {
+  const [email, setEmail] = useState('')
+  const [password, setpassword] = useState('')
   return (
     <div style={{background:"#2a2a2a"}}>
     <NavigationBar></NavigationBar>
@@ -41,11 +60,11 @@ function Signup() {
         <Stack spacing={4}>
           <FormControl id="email">
             <FormLabel>Email address</FormLabel>
-            <Input type="email" />
+            <Input type="email" onChange={e=>setEmail(e.target.value)}/>
           </FormControl>
           <FormControl id="password">
             <FormLabel>Password</FormLabel>
-            <Input type="password" />
+            <Input type="password" onChange={e=>setpassword(e.target.value)} />
           </FormControl>
           <Stack spacing={10}>
             <Stack
@@ -60,7 +79,10 @@ function Signup() {
               color={'white'}
               _hover={{
                 bg: 'green.400',
-              }}>
+              }}
+              
+              onClick={()=>registerUser(email,password)}
+              >
               Sign Up
             </Button>
           </Stack>
