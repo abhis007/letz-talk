@@ -18,7 +18,7 @@ function VideoCall() {
 
         peer.on('call', (call) => {
             var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-            getUserMedia({ video: true, audio: false }, (stream) => {
+            getUserMedia({ video: true, audio: true }, (stream) => {
                 call.answer(stream)
                 myVideoRef.current.srcObject = stream
                 myVideoRef.current.play()
@@ -92,7 +92,7 @@ function VideoCall() {
                             overflow="hidden"
                             mx="auto"
                         >
-                            <video style={{'width':'100%'}} ref={remoteVideoRef}></video>
+                            <video style={{'width':'100%'}} ref={remoteVideoRef}  muted="muted"></video>
 
                             <Box py={5}   w="90%" h="90%" textAlign="center">
                                 <Link
@@ -140,7 +140,7 @@ function VideoCall() {
                             overflow="hidden"
                             mx="auto"
                         >
-                            <video style={{'width':'100%'}} ref={myVideoRef}></video>
+                            <video style={{'width':'100%'}} ref={myVideoRef}  muted="muted"></video>
 
                             <Box py={5}   w="90%" h="90%" textAlign="center">
                                 <Link
