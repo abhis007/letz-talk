@@ -18,7 +18,7 @@ function VideoCall() {
 
         peer.on('call', (call) => {
             var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-            getUserMedia({ video: true, audio: true }, (stream) => {
+            getUserMedia({ video: true, audio: false }, (stream) => {
                 call.answer(stream)
                 myVideoRef.current.srcObject = stream
                 myVideoRef.current.play()
