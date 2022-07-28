@@ -3,7 +3,7 @@ import React from 'react'
 
 function Signin({setToken,setRoom,setName,name,room}) {
 
-   
+ 
 
     async function  handleSubmit(event){
         event.preventDefault()
@@ -14,6 +14,10 @@ function Signin({setToken,setRoom,setName,name,room}) {
         setToken(result.data)
         console.log('token',result.data)
     }
+
+
+
+   
   return (
    <form onSubmit={handleSubmit}>
       <label htmlFor='name'>Name</label>
