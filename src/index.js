@@ -6,15 +6,18 @@ import Signin from './pages/Signin';
 import Signup from './pages/Signup';
 import Home from './pages/Home';
 import VideoCall from './pages/VideoCall';
+import ProfileUpdate from './pages/ProfileUpdate';
 import { ChakraProvider } from '@chakra-ui/react'
 import { BrowserRouter, Routes,Route } from "react-router-dom";
-
+import {VideoContext, VideoProvider} from './context/VideoContext'
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ChakraProvider>
-  <React.StrictMode>
+  
+  
+  <VideoProvider>
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} />
@@ -22,9 +25,11 @@ root.render(
       <Route path="Signup" element={<Signup />} />
       <Route path="Home" element={<Home />} />
       <Route path="Video" element={<VideoCall />} />
+      <Route path="ProfileUpdate" element={<ProfileUpdate />} />
     </Routes>
     </BrowserRouter>
-  </React.StrictMode>
+    </VideoProvider>
+  
   </ChakraProvider>
 );
 

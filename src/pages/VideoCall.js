@@ -1,64 +1,38 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import Peer from 'peerjs'
 import NavigationBar from '../components/NavigationBar'
 import { Center, Flex, Spacer, Square, Container,Box,Link,chakra } from '@chakra-ui/react'
+import {VideoContext, VideoProvider} from '../context/VideoContext'
+import { getAuth, setPersistence, signInWithEmailAndPassword, browserSessionPersistence } from "firebase/auth";
+import { collection, doc, setDoc, getFirestore, getDoc, getDocs ,where} from "firebase/firestore";
+import { useLocation } from "react-router-dom"
 
+const auth = getAuth();
 
+const db = getFirestore()
 function VideoCall() {
-    const [peerId, setPeerId] = useState('')
-    const [remotePeerId, setRemotePeerId] = useState('')
-    const myVideoRef = useRef('')
-    const remoteVideoRef = useRef('')
-    const peerInstance = useRef(null)
-    useEffect(() => {
-        const peer = new Peer();
-        peer.on('open', function (id) {
-            setPeerId(id)
-        });
+  const {peerId,setPeerId,remotePeerId,setRemotePeerId,call,myVideoRef,remoteVideoRef,peerInstance} = useContext(VideoContext);
 
-        peer.on('call', (call) => {
-            var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-            getUserMedia({ video: true, audio: true }, (stream) => {
-                call.answer(stream)
-                myVideoRef.current.srcObject = stream
-                myVideoRef.current.play()
+  const location = useLocation();
+  console.log(location)
 
-                call.on('stream', function (remoteStream) {
-                    remoteVideoRef.current.srcObject = remoteStream
-                    remoteVideoRef.current.play()
-                });
-            })
-        })
-
-        peerInstance.current = peer
-
-
-
-    }, [])
-    console.log('peer id', peerId)
-    const call = (remoteUID) => {
-        alert(remoteUID)
-
-        var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-        getUserMedia({ video: true, audio: true }, (stream) => {
-            var call = peerInstance.current.call(remoteUID, stream);
-            myVideoRef.current.srcObject = stream
-            myVideoRef.current.play()
-
-            call.on('stream', function (remoteStream) {
-                remoteVideoRef.current.srcObject = remoteStream
-                remoteVideoRef.current.play()
-            });
-        }, function (err) {
-            console.log('Failed to get local stream', err);
-        });
-
+  useEffect(() => {
+    if(location.state){
+    const userDocRef = doc(db, 'users', location.state.user)
+    getDoc(userDocRef).then((userSnapShot) => {
+        if (userSnapShot.exists()) {
+           let remotePeer = userSnapShot.data().peerId
+           call(remotePeer)
+          
+        }
+      })
     }
 
+  }, [])
+  
 
-
-    console.log(peerId)
     return (
+       
         <div><NavigationBar></NavigationBar>
 
 
@@ -171,6 +145,7 @@ function VideoCall() {
             </Container>
 
         </div>
+        
     )
 }
 
