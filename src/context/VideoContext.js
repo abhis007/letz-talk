@@ -14,6 +14,7 @@ export const VideoProvider =({children})=>{
     const remoteVideoRef = useRef('')
     const peerInstance = useRef(null)
     useEffect(() => {
+        console.log('context')
         const peer = new Peer();
         if(peerId){
             peer.reconnect(peerId)
@@ -24,11 +25,14 @@ export const VideoProvider =({children})=>{
         });
 
         peer.on('call', (call) => {
-            var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
             setAnswerCall(true)     
             alert('incoming call')
+            
+          
             if (window.confirm("Answer?")) {
-            getUserMedia({ video: true, audio: true }, (stream) => {
+                var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+           
+                setTimeout( getUserMedia({ video: true, audio: true }, (stream) => {
                
                 call.answer(stream)
                 myVideoRef.current.srcObject = stream
@@ -38,7 +42,8 @@ export const VideoProvider =({children})=>{
                     remoteVideoRef.current.srcObject = remoteStream
                     remoteVideoRef.current.play()
                 });
-            })
+            }), 5000);
+                
         }
         })
 
