@@ -1,8 +1,12 @@
 import React, { createContext, useState, useRef,useEffect} from 'react'
-
+import { getAuth, setPersistence, signInWithEmailAndPassword, browserSessionPersistence } from "firebase/auth";
+import { collection, doc, setDoc, getFirestore, getDoc, getDocs ,where} from "firebase/firestore";
 
 import Peer from 'peerjs'
 import { useNavigate } from 'react-router-dom'
+const auth = getAuth();
+
+const db = getFirestore()
 export const VideoContext = createContext()
 export const VideoProvider =({children})=>{
     
@@ -57,7 +61,17 @@ export const VideoProvider =({children})=>{
 
 
     }, [])
- 
+    useEffect(()=>{
+        let userId = sessionStorage.getItem('UID')
+        let email = sessionStorage.getItem('email')
+       
+        if(peerId && userId ){
+         const userDocRef = doc(db, 'users',userId)
+         setDoc(userDocRef,{peerId:peerId},{ merge: true })
+        }
+        //  console.log('asdasd',allUsers)
+      },[peerId])
+    
     const call = (remoteUID) => {
         alert(remoteUID)
 
