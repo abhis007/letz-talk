@@ -10,6 +10,7 @@ import { getAuth, setPersistence, signInWithEmailAndPassword, browserSessionPers
 import { collection, doc, setDoc, getFirestore, getDoc, getDocs ,where} from "firebase/firestore";
 import {VideoContext} from '../context/VideoContext'
 import { useNavigate } from "react-router-dom";
+import ringer from "../sounds/ring.wav";
 
 const auth = getAuth();
 
@@ -21,8 +22,7 @@ function Home() {
   const [uid, setUid] = useState('')
   const [email, setEmail] = useState('')
   const [allUsers, setAllUSers] = useState([])
-  const {peerId,answerCall} = useContext(VideoContext);
-  const [myDetails,setMyDetails]=useState('')
+  const {peerId,playCall,answerCall,myDetails,setMyDetails} = useContext(VideoContext);
   const navigate = useNavigate();
   useEffect(() => {
 
@@ -65,14 +65,6 @@ if(!myDetails){
     
   }, [])
 
-  useEffect(()=>{
-    let userId = sessionStorage.getItem('UID')
-    let email = sessionStorage.getItem('email')
-    const userDocRef = doc(db, 'users',userId)
-    if(peerId && myDetails)
-     setDoc(userDocRef,{peerId:peerId},{ merge: true })
-     console.log('asdasd',allUsers)
-  },[peerId])
 
   useEffect(()=>{
     if(answerCall)
@@ -84,12 +76,14 @@ if(!myDetails){
   return (
     
   <Box bg={bg}  pb='100'>
+      <iframe src="/silence.mp3" allow="autoplay" id="audio"  style={{display:'none'}}></iframe>
       <TopBarLogined />
       <ProfileUpdatePopup isOpen={isOpen} onOpen={onOpen} onClose={onClose} uid={uid} email={email}></ProfileUpdatePopup>
       {/* <Button onClick={onOpen}>Modal</Button> */}
 
       <div style={{ 'margin-left': '9%', 'margin-right': '9%', 'margin-top': '10px' }}>
         <Container maxW='container.xxl' >
+          <Button onClick={()=>playCall()}>Enable Show</Button>
           <Text fontSize='xl'>SHOWING ALL CURRENTLY AVAILABLE USERS</Text>
           <br></br>
           <Wrap spacing='30px'>
@@ -104,6 +98,7 @@ if(!myDetails){
           </Wrap>
           
         </Container >
+      
       </div>
 
 

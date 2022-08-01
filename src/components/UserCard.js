@@ -17,7 +17,7 @@ function UserCard({user}) {
 
         >
           <Box
-            w="sm"
+           w={['100']}
             mx="auto"
             bg="white"
             _dark={{ bg: "gray.800" }}
@@ -56,7 +56,7 @@ function UserCard({user}) {
               {user.about}
               </chakra.p>
     
-              <SimpleGrid columns={2} spacing={10} mt={2}>
+              <SimpleGrid  columns={2} spacing={10} mt={2}>
                  <Button  variant='outline' colorScheme='blue' >View Profile</Button>
                  <Button rightIcon={<MdCall />} colorScheme='teal'  onClick={()=>{gotoVideo(navigate,user.uid)}}>
     Call Now
