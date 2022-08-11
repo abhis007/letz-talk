@@ -15,11 +15,13 @@ const auth = getAuth();
 
 const db = getFirestore()
 function VideoCall() {
-    const { myDetails, peerId, setPeerId, remotePeerId, setRemotePeerId, call, myVideoRef, remoteVideoRef, peerInstance } = useContext(VideoContext);
+    const { myDetails, peerId, setPeerId, remotePeerId, setRemotePeerId, call, myVideoRef, remoteVideoRef, peerInstance,toggleVideo,toggleMic,disconnect } = useContext(VideoContext);
 
     const location = useLocation();
     console.log(location)
     const [remoteUser, setRemoteUser] = useState()
+
+ 
     useEffect(() => {
         if (location.state) {
             const userDocRef = doc(db, 'users', location.state.user)
@@ -125,17 +127,17 @@ function VideoCall() {
 <SimpleGrid columns={3} spacing={[30,10]} justifyContent='center' pl={[0,'5%']} pt='5%' >
                     <Box   h='50px'   alignItems='center'   textAlign='center' >
                    
-                     <Button leftIcon={<FaMicrophoneSlash /> } colorScheme='blue' variant='solid'>
+                     <Button leftIcon={<FaMicrophoneSlash /> } colorScheme='blue' variant='solid'  onClick={()=>toggleMic()}> 
                        
                       </Button>  
                     </Box>
                     <Box  h='50px'  >
-                     <Button leftIcon={<FaPhoneSlash />} colorScheme='red' variant='solid'>
+                     <Button leftIcon={<FaPhoneSlash />} colorScheme='red' variant='solid' onClick={()=>disconnect()}>
                        
                       </Button>  
                     </Box>
                     <Box  h='50px' >
-                    <Button leftIcon={<FaVideoSlash />} colorScheme='pink' variant='solid'>
+                    <Button leftIcon={<FaVideoSlash />}  onClick ={()=>toggleVideo()}colorScheme='pink' variant='solid'>
                        
                        </Button>  
                     </Box>
