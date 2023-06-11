@@ -43,6 +43,8 @@ function App() {
   const [token, setToken] = useState()
   const [name, setName] = useState('')
   const [room, setRoom] = useState('')
+  
+  console.log(process.env.prod)
   // return (
   //   <div className="App">
   //     {!token?<Signin setToken={setToken} setName={setName} name ={name} setRoom={setRoom}  room={room}/>:<TwilioVideos token={token} room={room}/>}
